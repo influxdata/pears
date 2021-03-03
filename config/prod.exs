@@ -14,18 +14,17 @@ get_env! = fn name -> Map.fetch!(System.get_env(), name) end
 config :pears, PearsWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: [
-    "https://app.pears.dev",
-    "https://pears.gigalixirapp.com"
-  ]
+  check_origin: ["pears-influx.herokuapp.com"]
 
-# Gigalixir setup
+# Heroku setup
 config :pears, PearsWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [
-    host: get_env!.("APP_NAME") <> ".gigalixirapp.com",
-    port: 4000
+    scheme: "https",
+    host: "pears-influx.herokuapp.com",
+    port: 443
   ],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   secret_key_base: get_env!.("SECRET_KEY_BASE"),
   server: true
 
@@ -35,7 +34,7 @@ config :pears, Pears.Repo,
   ssl: true,
   pool_size: 2
 
-config :pears, slack_oauth_redirect_uri: "https://app.pears.dev/slack/oauth"
+config :pears, slack_oauth_redirect_uri: "https://pears-influx.herokuapp.com/slack/oauth"
 
 # Do not print debug messages in production
 config :logger, level: :info
