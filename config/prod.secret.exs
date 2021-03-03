@@ -25,15 +25,15 @@ config :pears, PearsWeb.Endpoint,
   server: true
 
 config :timber,
-  api_key: Map.fetch!(System.get_env(), "TIMBER_KEY"),
-  source_id: Map.fetch!(System.get_env(), "TIMBER_SOURCE_ID")
+  api_key: Map.fetch(System.get_env(), "TIMBER_KEY"),
+  source_id: Map.fetch(System.get_env(), "TIMBER_SOURCE_ID")
 
 config :opentelemetry,
   processors: [
     otel_batch_processor: %{
       exporter:
         {OpenTelemetry.Honeycomb.Exporter,
-         write_key: Map.fetch!(System.get_env(), "HONEYCOMB_KEY"), dataset: "pears"}
+         write_key: Map.fetch(System.get_env(), "HONEYCOMB_KEY"), dataset: "pears"}
     }
   ]
 

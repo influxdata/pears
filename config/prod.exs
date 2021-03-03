@@ -40,7 +40,7 @@ config :pears, slack_oauth_redirect_uri: "https://pears-influx.herokuapp.com/sla
 config :logger, level: :info
 
 config :sentry,
-  dsn: get_env!.("SENTRY_DSN_URL"),
+  dsn: Map.fetch(System.get_env(), "SENTRY_DSN_URL"),
   environment_name: :prod,
   enable_source_code_context: true,
   root_source_code_path: File.cwd!(),

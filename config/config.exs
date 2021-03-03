@@ -37,8 +37,8 @@ config :fun_with_flags, :persistence,
 
 config :opentelemetry, :resource, service: [name: "pears", namespace: "pears"]
 
-config :pears, slack_client_id: Map.fetch!(System.get_env(), "SLACK_CLIENT_ID")
-config :pears, slack_client_secret: Map.fetch!(System.get_env(), "SLACK_CLIENT_SECRET")
+config :pears, slack_client_id: Map.fetch(System.get_env(), "SLACK_CLIENT_ID")
+config :pears, slack_client_secret: Map.fetch(System.get_env(), "SLACK_CLIENT_SECRET")
 config :pears, slack_oauth_redirect_uri: Map.get(System.get_env(), "SLACK_OAUTH_URL")
 
 # Import environment specific config. This must remain at the bottom
