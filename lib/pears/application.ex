@@ -10,8 +10,6 @@ defmodule Pears.Application do
     OpentelemetryPhoenix.setup()
     OpentelemetryEcto.setup([:pears, :repo])
 
-    attach_timber_events()
-
     children = [
       # Start the Ecto repository
       Pears.Repo,
@@ -41,17 +39,5 @@ defmodule Pears.Application do
   def config_change(changed, _new, removed) do
     PearsWeb.Endpoint.config_change(changed, removed)
     :ok
-  end
-
-  defp attach_timber_events do
-    :ok =
-      :telemetry.attach(
-        "timber-ecto-query-handler",
-        [:pears, :repo, :query],
-        &Timber.Ecto.handle_event/4,
-        []
-      )
-
-    :ok = Logger.add_translator({Timber.Exceptions.Translator, :translate})
   end
 end

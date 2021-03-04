@@ -1,5 +1,4 @@
 defmodule PearsWeb.Endpoint do
-  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :pears
 
   # The session will be stored in the cookie and signed,
@@ -15,7 +14,8 @@ defmodule PearsWeb.Endpoint do
     websocket: [timeout: 45_000],
     longpoll: false
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [timeout: 45_000, connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [timeout: 45_000, connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -48,14 +48,9 @@ defmodule PearsWeb.Endpoint do
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 
-  plug Sentry.PlugContext
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-
-  # Timber logging
-  plug(Timber.Plug.HTTPContext)
-  plug(Timber.Plug.Event)
 
   plug PearsWeb.Router
 end
