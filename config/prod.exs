@@ -14,7 +14,7 @@ get_env! = fn name -> Map.fetch!(System.get_env(), name) end
 config :pears, PearsWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: ["pears-influx.herokuapp.com"]
+  check_origin: ["https://pears-influx.herokuapp.com"]
 
 # Heroku setup
 config :pears, PearsWeb.Endpoint,
