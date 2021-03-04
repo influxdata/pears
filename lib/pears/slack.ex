@@ -18,7 +18,6 @@ defmodule Pears.Slack do
   @decorate trace("slack.link_url")
   def link_url do
     state = "onboard"
-    client_id = "169408119024.1514845190500"
 
     scope =
       Enum.join(
@@ -29,7 +28,7 @@ defmodule Pears.Slack do
     user_scope = Enum.join([], ",")
 
     "https://slack.com/oauth/v2/authorize?redirect_uri=#{redirect_uri()}&state=#{state}&client_id=#{
-      client_id
+      client_id()
     }&scope=#{scope}&user_scope=#{user_scope}"
   end
 
@@ -308,4 +307,5 @@ defmodule Pears.Slack do
   end
 
   defp redirect_uri, do: Application.get_env(:pears, :slack_oauth_redirect_uri)
+  defp client_id, do: Application.get_env(:pears, :slack_client_id)
 end
