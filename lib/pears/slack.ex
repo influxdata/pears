@@ -306,6 +306,6 @@ defmodule Pears.Slack do
     end
   end
 
-  defp redirect_uri, do: Application.get_env(:pears, :slack_oauth_redirect_uri)
-  defp client_id, do: Application.get_env(:pears, :slack_client_id)
+  defp redirect_uri, do: Application.fetch_env!(:pears, :slack_oauth_redirect_uri)
+  defp client_id, do: Application.fetch_env!(:pears, :slack_client_id)
 end
